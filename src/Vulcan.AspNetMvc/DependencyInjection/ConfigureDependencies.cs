@@ -18,7 +18,7 @@ namespace Vulcan.AspNetMvc.DependencyInjection
             if (_container == null)
             {
                 throw new Exception("请先初始化容器");
-            }
+            }          
             return _container;
         }
         private static void CreateContainer()
@@ -32,6 +32,14 @@ namespace Vulcan.AspNetMvc.DependencyInjection
                         _container = new Container();
                     }
                 }
+            }
+        }
+        public static void DisposeContainer()
+        {
+            if (_container != null)
+            {
+                _container.Dispose();
+                _container = null;
             }
         }
         public static IContainer InitContainer(List<Registry> rlist)
