@@ -13,7 +13,7 @@ namespace Vulcan.AspNetMvc.Test.DependencyInjection
     [TestFixture]
     public class TestIoc
     {
-        [SetUp]
+        [TestFixtureSetUp]      
         public void Setup()
         {
             var list = new List<Registry>();
@@ -32,7 +32,7 @@ namespace Vulcan.AspNetMvc.Test.DependencyInjection
             Assert.IsTrue(service.Equals(service2));
         }
 
-        [TearDown]
+        [TestFixtureTearDown]
         public void Clear()
         {
             ConfigureDependencies.DisposeContainer();

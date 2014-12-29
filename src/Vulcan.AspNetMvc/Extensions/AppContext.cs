@@ -133,9 +133,14 @@ namespace Vulcan.AspNetMvc.Extensions
         /// <returns>
         /// 	<c>true</c> if [is in role] [the specified role code]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsInRole(string roleCode)
+        public static bool IsInRole(string userId, string roleCode)
         {
             return false;
+        }
+
+        public static bool IsInRole(string roleCode)
+        {
+            return IsInRole(Identity, roleCode);
         }
         /// <summary>
         /// 判断是否有权限

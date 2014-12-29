@@ -117,6 +117,8 @@
     <Compile Include="Extensions\ResourceDropDownListExtensions.cs" />
     <Compile Include="Extensions\ResourceExtensions.cs" />
     <Compile Include="Extensions\ResourceRadioListExtensions.cs" />
+    <Compile Include="Extensions\ServiceStackJsonResult.cs" />
+    <Compile Include="Extensions\VulcanController.cs" />
     <Compile Include="Interfaces\IAppContextService.cs" />
     <Compile Include="Interfaces\IResource.cs" />
     <Compile Include="Interfaces\IResourceService.cs" />

@@ -11,6 +11,7 @@ namespace Vulcan.AspNetMvc.Test.MockObject
         public ServiceRegistry()
         {
             For<ISampleService>().Use(new SampleService());
+            For<IHelloService>().Use(new HelloService());
         }
     }
 }
