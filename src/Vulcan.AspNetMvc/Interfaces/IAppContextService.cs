@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Vulcan.AspNetMvc.Interfaces;
 
-namespace Vulcan.AspNetMvc
+namespace Vulcan.AspNetMvc.Interfaces
 {
     public interface IAppContextService
     {
