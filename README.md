@@ -1,7 +1,5 @@
 # Vulcan.AspNetMvc
 
-标签（空格分隔）： AspNetMvc,IOC
-
 ---
 
 Vulcan.AspNetMvc 是一个ASP.NET MVC4的帮助类库，集成Ioc（使用structuremap3.0），使用ServiceStack.Text替换默认的Newtonsoft.Json来序列化Json. 同时提供一些常用的帮助类和基类，协助快速开发
