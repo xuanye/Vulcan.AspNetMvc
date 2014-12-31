@@ -351,7 +351,7 @@ public class DefaultResource : IResource
 ```
 
 ## 示例程序
-待完成
+详见 sample目录
 
   [1]: http://structuremap.github.io/
   [2]: http://structuremap.github.io/registration/registry-dsl/
