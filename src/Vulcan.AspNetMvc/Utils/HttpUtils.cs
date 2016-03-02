@@ -6,6 +6,8 @@ using System.Web;
 using System.Collections.Specialized;
 using System.Net;
 using System.IO;
+using Vulcan.AspNetMvc.Common;
+using Vulcan.AspNetMvc.Interfaces;
 
 namespace Vulcan.AspNetMvc.Utils
 {
@@ -33,7 +35,7 @@ namespace Vulcan.AspNetMvc.Utils
         private static string DictToStr(SortedDictionary<string, string> dict, string str_join, Encoding coding)
         {
             //连接字符串
-            str_join = str_join == null ? "&" : str_join;
+            str_join = str_join ?? "&";
             StringBuilder result = new StringBuilder();
             string value = string.Empty;
             int i = 0;
@@ -64,6 +66,7 @@ namespace Vulcan.AspNetMvc.Utils
     internal sealed class Net
     {
 
+        private static ILogService LogService = ServiceFactory.GetInstance<ILogService>();
         /// <summary>
         /// 返回URL内容,带POST数据提交
         /// </summary>
@@ -79,7 +82,6 @@ namespace Vulcan.AspNetMvc.Utils
             //Encoding encoding = Encoding.GetEncoding("utf-8");
 
             //请求
-            WebRequest webRequest = null;
             Stream postStream = null;
 
             //响应
@@ -99,8 +101,9 @@ namespace Vulcan.AspNetMvc.Utils
                         url = url + '?' + data;
                     }
                 }
+                LogService.Trace("请求的URL:" + url);
                 //请求
-                webRequest = WebRequest.Create(url);
+                var webRequest = WebRequest.Create(url);
                 webRequest.Method = string.IsNullOrEmpty(method) ? "POST" : method;
                 webRequest.Timeout = timeout;
 
@@ -269,12 +272,16 @@ namespace Vulcan.AspNetMvc.Utils
             {
                 wresp = requestToServer.GetResponse();
                 Stream stream2 = wresp.GetResponseStream();
-                StreamReader reader2 = new StreamReader(stream2);
-                result = reader2.ReadToEnd();
+                if (stream2 != null)
+                {
+                    StreamReader reader2 = new StreamReader(stream2);
+                    result = reader2.ReadToEnd();
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //TODO:异常处理
+                LogService.Error("请求发生异常：" + ex.Message + "\r\n--------\r\n" + ex.StackTrace);
+             
                 if (wresp != null)
                 {
                     wresp.Close();

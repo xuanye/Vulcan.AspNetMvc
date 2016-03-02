@@ -2,7 +2,7 @@
 
 ---
 
-Vulcan.AspNetMvc 是一个ASP.NET MVC4的帮助类库，集成Ioc（使用structuremap3.0），使用ServiceStack.Text替换默认的Newtonsoft.Json来序列化Json. 同时提供一些常用的帮助类和基类，协助快速开发
+Vulcan.AspNetMvc 是一个ASP.NET MVC4的帮助类库，集成Ioc（使用structuremap4.0）, 同时提供一些常用的帮助类和基类，协助快速开发
 
 ## 安装
 
@@ -36,20 +36,16 @@ protected void Application_Start()
 {
     public static void Initialise()
     {
-        List<Registry> rlist = new List<Registry>();
-        //... add Service Registry
-        rlist.Add(new ServiceRegistry());
-        
-        //add more Registry
-        //...
-        
-        IContainer container =  ConfigureDependencies.InitContainer(rlist);
+        Registry registry = new Registry();
+        registry.IncludeRegistry<DefaultRegistry>();//注册了默认的Newtonsoft.Json序列化 Controller中的JsonResult
+        registry.IncludeRegistry<ServiceRegistry>();
+
+        IContainer container =  ConfigureDependencies.InitContainer(registry);
 
         //Register for MVC
         DependencyResolver.SetResolver(new StructureMapDependencyScope(container));
 
         //Register for Web API
-        //GlobalConfiguration.Configuration.DependencyResolver = new StructureMapResolver(container);
        
     }
 }
@@ -79,23 +75,58 @@ public class TestController : Controller
 ### 使用ServiceStack.Text 替换Newtonsoft.Json 作为默认的Json序列化组件
 
 #### 在MVC4 WebApp中使用ServiceStack.Text
-**方法1**
-自定义Controller基类，并重写父类的Json方法,如下所示
 
+**Step 1** : Controller继承Vulcan.AspNetMvc 提供的 VulcanController
+
+**Step 2** ：实现 接口`Vulcan.AspNetMvc.Interfaces.IJsonSerialize`,代码如下：
 ```
-protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
+using ServiceStack.Text;
+using Vulcan.AspNetMvc.Interfaces;
+public class ServiceStackSerialize : IJsonSerialize
 {
-    return new ServiceStackJsonResult
+     public T FromJson<T>(string str)
+     {
+         if (string.IsNullOrEmpty(str))
+         {
+             return default(T);
+         }
+         else
+         {
+             return str.FromJson<T>();
+         }
+     }
+
+     public string ToJson(object value)
+     {
+        if(value == null)
+        {
+            return ""; 
+        }
+        else
+        {
+            return value.ToJson();
+        }
+     }
+ }
+```
+
+**Step 3** : 注册刚刚实现的接口 替换默认注册
+```
+ public class Bootstraper
+{
+    public static void Initialise()
     {
-        Data = data,
-        ContentType = contentType,
-        ContentEncoding = contentEncoding
-    };
+        Registry registry = new Registry();
+        // 替换掉默认注册。
+        registry.For<IJsonSerialize>().Use<ServiceStackSerialize>().Singleton();
+        //registry.IncludeRegistry<DefaultRegistry>();//注册了默认的Newtonsoft.Json序列化 Controller中的JsonResult
+        registry.IncludeRegistry<ServiceRegistry>();
+        IContainer container =  ConfigureDependencies.InitContainer(registry);
+        //Register for MVC
+        DependencyResolver.SetResolver(new StructureMapDependencyScope(container));       
+    }
 }
 ```
-**方法2**
-直接使用Vulcan.AspNetMvc 提供的 VulcanController
-
 #### 在WebApi2中使用ServiceStack.Text
 在WebApi2中默认使用ServiceStack.Text需要在应用系统启动时替换，代码如下所示
 ```

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using SampleWebApp.Models.Service;
 using SampleWebApp.Models.ServiceInterfaces;
-using StructureMap.Configuration.DSL;
+using StructureMap;
 using Vulcan.AspNetMvc.Interfaces;
 
 namespace SampleWebApp.Models
@@ -14,7 +14,6 @@ namespace SampleWebApp.Models
         public ServiceRegistry()
         {
             For<IHelloService>().Use(new HelloService());
-            //OR For<IHelloService>().Use<HelloService>();
 
             For<IAppContextService>().Use<AppContextService>();
             For<IResourceService>().Use<ResourceService>();

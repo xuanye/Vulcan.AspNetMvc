@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vulcan.AspNetMvc", "Vulcan.AspNetMvc\Vulcan.AspNetMvc.csproj", "{BC3D9E00-F366-46A1-9946-E24578BBCAC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vulcan.AspNetMvc.Test", "Vulcan.AspNetMvc.Test\Vulcan.AspNetMvc.Test.csproj", "{84BB833E-4B0D-4F53-BF14-375AE561325F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vulcan.AspNetMvc.Test", "..\tests\Vulcan.AspNetMvc.Test\Vulcan.AspNetMvc.Test.csproj", "{84BB833E-4B0D-4F53-BF14-375AE561325F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{DE6AB7BD-FD4A-4ACF-9528-F151800C0612}"
+	ProjectSection(SolutionItems) = preProject
+		..\lib\nunit.framework.dll = ..\lib\nunit.framework.dll
+		..\lib\ServiceStack.Text.dll = ..\lib\ServiceStack.Text.dll
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

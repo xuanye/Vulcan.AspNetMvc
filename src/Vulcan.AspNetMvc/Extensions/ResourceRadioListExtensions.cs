@@ -24,7 +24,7 @@ namespace Vulcan.AspNetMvc.Extensions
                 foreach (var item in rlist)
                 {
                     sb.Append("<label>");
-                    sb.Append(html.RadioButton(name, item.Code, item.Value == selectedValue.ToString()));
+                    sb.Append(html.RadioButton(name, item.Code, item.Value == selectedValue.ToString(), htmlAttributes));
                     sb.AppendFormat("{0}</label>",item.Name);
                 }
                 return new MvcHtmlString(sb.ToString());

@@ -62,7 +62,7 @@ namespace Vulcan.AspNetMvc.Extensions
         #region 重写基类的方法
         protected override JsonResult Json(object data, string contentType, Encoding contentEncoding, JsonRequestBehavior behavior)
         {
-            return new ServiceStackJsonResult
+            return new VulcanJsonResult
             {
                 Data = data,
                 ContentType = contentType,

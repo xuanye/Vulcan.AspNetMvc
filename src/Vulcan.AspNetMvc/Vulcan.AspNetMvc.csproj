@@ -44,14 +44,13 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text">
-      <HintPath>..\packages\ServiceStack.Text.3.9.71\lib\net35\ServiceStack.Text.dll</HintPath>
+    <Reference Include="StructureMap, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="StructureMap">
-      <HintPath>..\packages\structuremap.3.1.4.143\lib\net40\StructureMap.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap.Net4">
-      <HintPath>..\packages\structuremap.3.1.4.143\lib\net40\StructureMap.Net4.dll</HintPath>
+    <Reference Include="StructureMap.Net4, Version=4.0.1.318, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.4.0.1.318\lib\net40\StructureMap.Net4.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -106,8 +105,9 @@
     <Compile Include="CacheManager\SessionManager.cs" />
     <Compile Include="Common\ServiceFactory.cs" />
     <Compile Include="Config\AppConfig.cs" />
-    <Compile Include="Config\JsConfig.cs" />
     <Compile Include="Context\VulcanAuthorizeAttribute.cs" />
+    <Compile Include="DefaultImpl\DefaultJsonSerialize.cs" />
+    <Compile Include="DefaultRegistry.cs" />
     <Compile Include="DependencyInjection\ConfigureDependencies.cs" />
     <Compile Include="DependencyInjection\StructureMapDependencyScope.cs" />
     <Compile Include="DependencyInjection\StructureMapResolver.cs" />
@@ -124,8 +124,16 @@
     <Compile Include="Extensions\ResourceDropDownListExtensions.cs" />
     <Compile Include="Extensions\ResourceExtensions.cs" />
     <Compile Include="Extensions\ResourceRadioListExtensions.cs" />
-    <Compile Include="Extensions\ServiceStackJsonResult.cs" />
     <Compile Include="Extensions\VulcanController.cs" />
+    <Compile Include="Extensions\VulcanJsonResult.cs" />
+    <Compile Include="Interfaces\IJsonSerialize.cs" />
+    <Compile Include="Interfaces\ILogService.cs" />
+    <Compile Include="Request\AccessResponse.cs" />
+    <Compile Include="Request\ClientErrorEventArgs.cs" />
+    <Compile Include="Request\Cryptography.cs" />
+    <Compile Include="Request\ResponseEventArgs.cs" />
+    <Compile Include="Request\RequestClientException.cs" />
+    <Compile Include="Request\StringCompare.cs" />
     <Compile Include="Interfaces\IAppContextService.cs" />
     <Compile Include="Interfaces\IResource.cs" />
     <Compile Include="Interfaces\IResourceService.cs" />
@@ -135,7 +143,6 @@
     <Compile Include="JsonEntities\JsonSMsg.cs" />
     <Compile Include="JsonEntities\JsonTreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceStackTextFormatter.cs" />
     <Compile Include="Utils\AssertUtils.cs" />
     <Compile Include="Utils\DateUtils.cs" />
     <Compile Include="Utils\FileDownLoadUtils.cs" />
@@ -148,7 +155,9 @@
     <Compile Include="Utils\PinYinUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

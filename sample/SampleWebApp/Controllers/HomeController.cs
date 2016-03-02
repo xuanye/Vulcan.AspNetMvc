@@ -32,6 +32,10 @@ namespace SampleWebApp.Controllers
         {
             return View();
         }
+        public JsonResult TestJson()
+        {
+            return Json(new { Name = "Xuanye", Age = 13 });
+        }
 
         [HttpPost]
         public ActionResult Login(FormCollection form)

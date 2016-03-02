@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using StructureMap;
-using StructureMap.Configuration.DSL;
 
 namespace Vulcan.AspNetMvc.DependencyInjection
 {
-    public class ConfigureDependencies
+    public static class ConfigureDependencies
     {
         private static IContainer _container;
 
@@ -42,15 +41,13 @@ namespace Vulcan.AspNetMvc.DependencyInjection
                 _container = null;
             }
         }
-        public static IContainer InitContainer(List<Registry> rlist)
+        public static IContainer InitContainer(Registry registry)
         {
             CreateContainer();
+          
             _container.Configure(
                 x => {
-                    foreach (var registry in rlist)
-                    {
-                        x.AddRegistry(registry);
-                    }
+                    x.AddRegistry(registry);
                 }
             );
 
